@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 
 function WithData(Component, endpoint) {
-	return function () {
+	return function WithDataWrapper({ updateState }) {
 		const [data, setData] = useState([]);
 
 		useEffect(() => {
-			setTimeout(async () => {
+			(async () => {
 				const data = await (
 					await fetch(
 						`https://jsonplaceholder.typicode.com/${endpoint}?_limit=5`
 					)
 				).json();
 				setData(data);
-			}, 2000);
+				updateState(data);
+			})();
 		}, []);
 
 		return <Component data={data} />;

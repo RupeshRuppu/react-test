@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import Loader from "./Loader";
 
 function WithLoader(Component) {
-	return function () {
+	return function WithLoaderWrapper() {
+		const [data, setData] = useState([]);
+		const updateState = value => {
+			setData(value);
+		};
 		return (
 			<>
-				{<Component />}
+				{<Component updateState={updateState} />}
 				<section className="absolute inset-0 grid place-items-center">
-					<Loader />
+					{Object.keys(data).length === 0 ? <Loader /> : null}
 				</section>
 			</>
 		);
