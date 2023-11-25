@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Loader from "./Loader";
 
 function WithData(Component, endpoint) {
 	return function WithDataWrapper({ updateState }) {
@@ -16,6 +17,12 @@ function WithData(Component, endpoint) {
 			})();
 		}, []);
 
+		if (Object.keys(data).length === 0)
+			return (
+				<section className="absolute inset-0 grid place-items-center">
+					<Loader />
+				</section>
+			);
 		return <Component data={data} />;
 	};
 }
