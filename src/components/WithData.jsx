@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Loader from "./Loader";
 
 function WithData(Component, endpoint) {
-	return function WithDataWrapper({ updateState }) {
+	return function WithDataWrapper() {
 		const [data, setData] = useState([]);
 
 		useEffect(() => {
@@ -13,7 +13,6 @@ function WithData(Component, endpoint) {
 					)
 				).json();
 				setData(data);
-				updateState(data);
 			})();
 		}, []);
 
